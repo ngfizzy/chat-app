@@ -8,6 +8,7 @@ import { useAuth } from '../../../custom-hooks';
 
 
 import './Auth.css';
+import { Redirect } from 'react-router-dom';
 
 
 const defaultCredentials: Partial<IUser> = {
@@ -38,6 +39,10 @@ const Auth: FC<{}> = () => {
     );
 
     const toggleIsLoggedIn = useCallback(() => setLoggingIn(curr => !curr),[]);
+
+    if(user) {
+      return <Redirect to="/chat" />
+    }
 
     return (
         <Row className="border Auth">
