@@ -20,7 +20,7 @@
     "jsx": "react"
   },
   "include": [
-    "types/**/*",
+    "../types/**/*",
     "src/**/*"
   ],
   "exclude": [

@@ -1,11 +1,5 @@
+import axios from '../axios';
+import { Auth } from './auth';
 
-
-class API {
-
-    apiBaseUrl = process.env.NODE_ENV === 'production' ? '/' 'localhost:5000/api/';
-
-}
-
-
-export default API;
-    
+export const auth = new Auth(axios);
+  
