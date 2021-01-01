@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useCallback, useState } from 'react'
 import { ConversationSummary } from '../../presentation/ConversationSummary'
 import { ProfileIcon } from '../../presentation/ProfileIcon'
 import './ConversationsList.css'
@@ -78,13 +78,24 @@ const initialConversations = [
   },
 ];
 export const ConversationsList: FC = () => {
-  const [conversations] = useState(initialConversations)
+  const [conversations] = useState(initialConversations);
+  const [selectedId, setSelectedId] = useState('');
 
+  const select = (conversationId: string) => 
+    () => setSelectedId(conversationId);
+
+  
+  const selectCallback =  useCallback(select, []);
   return (
     <div className="ConversationsList">
       {conversations
         .map(conversation => 
-            <div key={conversation.id} className="p-1 mb-1 ConversationListItem">
+            <div 
+              key={conversation.id}
+              className={`p-1 mb-1 ConversationListItem ${selectedId === conversation.id? 'selected' : ''}`}
+              onClick={selectCallback(conversation.id)}
+
+            >
               <ProfileIcon name={conversation.name} />
               <ConversationSummary name={conversation.name} message={conversation.message} />
             </div>

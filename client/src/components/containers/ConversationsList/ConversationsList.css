@@ -9,7 +9,8 @@
   cursor: pointer;
 }
 
-.ConversationListItem:hover {
+.ConversationListItem:hover,
+.selected {
   background-color: #ececf3;
 }
 

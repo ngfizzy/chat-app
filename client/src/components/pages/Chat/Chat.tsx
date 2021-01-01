@@ -1,7 +1,6 @@
 import React from 'react';
 import { Col, Container,Row } from 'react-bootstrap';
 import { ConversationsList } from '../../containers/ConversationsList';
-
 // import { AuthContext } from '../../../store/AuthContext';
 
 import './Chat.css';
