@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (_:Request, res: Response) => {
-    res.json()
+    res.json({message: 'hello'})
 });
 
 

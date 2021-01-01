@@ -1,0 +1,19 @@
+.ConversationsList {
+  height: 90%;
+  overflow: auto;
+}
+
+
+.ConversationListItem {
+  display: flex;
+  cursor: pointer;
+}
+
+.ConversationListItem:hover {
+  background-color: #ececf3;
+}
+
+.Header {
+  color: #948c8c;
+  border-bottom: 1px solid #e9ebfa;
+}

@@ -1,0 +1,16 @@
+
+
+.ConversationSummary  {
+  display: flex;
+  flex-direction: column;
+  height: 6rem;
+  overflow: hidden;
+}
+
+.ConversationSummary .contact-name {
+  color: #5c6063;
+}
+
+.ConversationSummary  .last-message {
+  color: #5c6063;
+}

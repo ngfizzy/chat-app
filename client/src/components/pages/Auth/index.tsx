@@ -46,12 +46,8 @@ const Auth: FC<{}> = () => {
 
     return (
         <Row className="border Auth">
-          <Col xs={12} sm={4} md={3} className="mx-auto p-1">
-            <Row>
-              <header className="col-12 mb-5">
-                <h1 className="text-center">Chatly</h1>
-              </header>
-            </Row>
+          <Col xs={12} sm={4} md={3} className="mx-auto mt-5 p-1">
+
             <Row className="bg-light p-3 rounded">
             {
               !isLoggingIn ?

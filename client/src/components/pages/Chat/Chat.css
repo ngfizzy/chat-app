@@ -1,0 +1,9 @@
+.Chat {
+  height: 93vh;
+}
+
+.ConversationListWrapper {
+  border-left: 2px solid #e9ebfa;
+  border-right: 2px solid #e9ebfa;
+}
+
