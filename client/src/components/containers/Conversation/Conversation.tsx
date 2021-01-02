@@ -1,6 +1,7 @@
 import React, {FC, useState, useContext} from 'react';
 import TimeAgo from 'react-timeago'
 import { ProfileIcon } from '../../presentation/ProfileIcon';
+import { MultilineText } from '../../presentation/MultilineText'
 import { AuthContext } from '../../../store/AuthContext';
 import './Conversation.css';
 
@@ -137,7 +138,7 @@ export const Conversation:FC = () => {
           <div className="MessageWrapper">
             <ProfileIcon name={message.user.name} />
             <div className="font-weight-700 m-1 p-2 rounded Message">
-                {message.text.split('\n').map(paragraph => <p className="p">{paragraph}</p>)}
+              <MultilineText text={message.text}/>
             </div>
           </div>
           <span className="ml-5 Time">

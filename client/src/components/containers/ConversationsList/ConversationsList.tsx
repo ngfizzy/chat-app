@@ -90,16 +90,21 @@ export const ConversationsList: FC = () => {
     <div className="ConversationsList">
       {conversations
         .map(conversation => 
-            <div 
-              key={conversation.id}
-              className={`p-1 mb-1 ConversationListItem ${selectedId === conversation.id? 'selected' : ''}`}
-              onClick={selectCallback(conversation.id)}
-            >
-              <ProfileIcon name={conversation.name} />
-              <ConversationSummary name={conversation.name} message={conversation.message} />
-            </div>
-          )
-        }
+          <div 
+            key={conversation.id}
+            className={
+              `p-1 mb-1 ConversationListItem 
+              ${selectedId === conversation.id? 'selected' : ''}`
+            }
+            onClick={selectCallback(conversation.id)}
+          >
+            <ProfileIcon name={conversation.name} />
+            <ConversationSummary
+              name={conversation.name} 
+              message={conversation.message} />
+          </div>
+        )
+      }
     </div>
   );
 }

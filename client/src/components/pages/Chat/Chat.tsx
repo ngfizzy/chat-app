@@ -47,7 +47,6 @@ export const Chat = () => {
                       <FontAwesomeIcon icon={faPaperPlane} />
                     </Col>
                   </Row>
-
                 </Col>
               </Row>
             </Col>
