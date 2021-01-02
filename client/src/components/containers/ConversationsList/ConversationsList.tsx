@@ -7,8 +7,8 @@ const initialConversations = [
   {
     id: '123a4',
     name: 'Bryant Wayama',
-    message: `Completion of this project is very urgent.
-        The client is getting concerned
+    message: `We are getting close to the completion of the project.
+        Should I to deploy?
       `,
   },
   {
@@ -94,7 +94,6 @@ export const ConversationsList: FC = () => {
               key={conversation.id}
               className={`p-1 mb-1 ConversationListItem ${selectedId === conversation.id? 'selected' : ''}`}
               onClick={selectCallback(conversation.id)}
-
             >
               <ProfileIcon name={conversation.name} />
               <ConversationSummary name={conversation.name} message={conversation.message} />

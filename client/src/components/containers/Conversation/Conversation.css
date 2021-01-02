@@ -1,0 +1,59 @@
+.Conversation {
+  padding: .2rem;
+}
+
+
+.ReceivedMessage,
+.SentMessage {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  margin-right: auto;
+}
+
+.MessageWrapper {
+  display: flex;
+}
+
+.ReceivedMessage .Message,
+.SentMessage .Message {
+  width: 90%;
+  background-color: #edeff5;
+  color: #5b5e63;
+}
+
+.Message .p {
+  padding: 0;
+  margin: .2rem
+}
+
+.SentMessage {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.SentMessage .MessageWrapper {
+  flex-direction: row-reverse;
+}
+
+.SentMessage .Message {
+  background-color: #3082ff;
+  color: #bbd0ea;
+  margin-left: 0!important;
+
+}
+
+
+.Time {
+  color: #cbcdd2;
+  font-size: 90%;
+  padding: .1rem .6rem;
+  margin-left: 2rem !important;
+}
+
+.SentMessage .Time {
+  text-align: right;
+  margin-left: 0!important;
+  margin-right: 2rem;
+
+}

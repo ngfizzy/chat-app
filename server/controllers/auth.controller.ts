@@ -33,7 +33,7 @@ export class AuthController {
        return authError;
       }
 
-      const {password: hashed, ...rest} =  found.toJSON();
+      const {password: hashed,  ...rest} =  found.toJSON();
       const valid = await bcrypt.compare(credentials.password!, hashed!)
 
       if(!valid) {
@@ -41,7 +41,7 @@ export class AuthController {
       }
 
       const token = JWT.sign(rest, process.env.JWT_SECRET!);
-      const user: IUser = {...rest, token };
+      const user: IUser = {...rest, id: found.id, token };
 
       return {
         user,
