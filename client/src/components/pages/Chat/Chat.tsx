@@ -43,14 +43,18 @@ export const Chat = () => {
                       sm={10}
                       md={11}
                       xs={11}></Col>
-                    <Col className="h-25 my-auto border-0 bg-transparent" xs={1} sm={2} md={1} as="button">
+                    <Col
+                      className="h-25 my-auto border-0 bg-transparent"
+                      xs={1}
+                      sm={2}
+                      md={1}
+                      as="button">
                       <FontAwesomeIcon icon={faPaperPlane} />
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </Col>
-            
           </Row>
         </Col>
       </Row>

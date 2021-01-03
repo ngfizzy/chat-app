@@ -6,10 +6,11 @@ const schema = new Schema({
   email: {type: String, unique: true},
   username: {type: String, unique: true},
   password: String,
-});
+}, { timestamps: true});
 
-export interface UserDoc extends Document, Omit<IUser, 'id' | 'token'> {}
+schema.index({name: 'text'});
+
+export interface UserDoc extends Document, Omit<IUser, 'id' | 'token' | '_id'> {}
 export const User = model<
     UserDoc
   >('User', schema);
-

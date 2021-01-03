@@ -10,6 +10,7 @@ export interface BaseRes {
 }
 
 export interface IUser {
+  _id?: string;
   id?: string;
   name: string;
   username: string;
@@ -18,9 +19,31 @@ export interface IUser {
   token?: string;
 }
 
+
+export interface IConversation {
+  _id?: string;
+  parties: IUser[];
+  messages: IMessage[]
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IMessage {
+  _id?: string;
+  author: IUser;
+  text: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface AuthResponse extends BaseRes {
   user: IUser | null;
 }
+
+export interface UsersResponse extends BaseRes {
+  users: IUser[]
+}
+
 
 
 export interface IAuthContext  {

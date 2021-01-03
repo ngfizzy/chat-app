@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import cors from 'cors';
 import express, { Response, Request } from 'express';
-import {connect} from 'mongoose';
+import {connect, set as setMongooseConfig } from 'mongoose';
 import {createServer} from 'http';
 import { authRouter } from './routes';
 
@@ -17,10 +17,10 @@ app.get('/', (_:Request, res: Response) => {
     res.json({message: 'hello'})
 });
 
-
 app.use('/api/auth', authRouter);
 
 
+setMongooseConfig('useCreateIndex', true);
 connect(
   process.env.DB_URL!,
   {
