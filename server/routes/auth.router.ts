@@ -10,9 +10,10 @@ authRouter.post('/signup', (req: Request, res: Response) => respond(res)
   .withPayload(req.body, signupValidator)
 );
 
-authRouter.post('/login', ({body}: Request, res: Response) =>  respond(res)
-  .using(authController.login)
-  .withPayload({username: body.username, password: body.password}, loginValidator)
-);
+authRouter.post('/login', ({body}: Request, res: Response) =>  {
+  return respond(res)
+    .using(authController.login)
+    .withPayload({username: body.username, password: body.password}, loginValidator)
+});
 
 export { authRouter };

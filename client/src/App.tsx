@@ -12,39 +12,15 @@ import ProtectedRoute from './ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Auth from './components/pages/Auth';
-import { Button, Col, Form, FormControl, Nav, Navbar, Row } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { Col, Row } from 'react-bootstrap';
+
+import { AppNavBar } from './components/containers/AppNavBar';
 
 function App() {
   return (
     <Row as="div" className="App">
       <AuthProvider>
-        <Navbar as={Col} xs={12} xl={8} variant="light" className="mx-auto mb-1 bg-light rounded" expand="sm">
-            <Navbar.Brand  href="#home">
-              <h3 className="font-weight-bold font-italic NavBrand">
-                Chatly
-              </h3>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-              </Nav>
-              <Form inline className="mx-auto row mb-1">
-                <FormControl type="text" placeholder="Search" className="col-sm-8 col-md-8 mx-auto" />
-                <Button
-                  variant="outline-primary"
-                  className="col-sm-4 col-md-4 mx-auto"
-                >
-                  <FontAwesomeIcon icon={faSearch} />
-                </Button>
-              </Form>
-
-              <Button className="d-inline-block ml-auto" variant="success">
-                <FontAwesomeIcon icon={faSignOutAlt} />
-              </Button>
-            </Navbar.Collapse>
-          </Navbar>
+          <AppNavBar />
           <Col xs={12} className="p-0">
             <Router>
               <Switch>

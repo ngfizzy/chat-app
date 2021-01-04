@@ -5,8 +5,6 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { updateFormState } from '../../../helpers';
 import { IUser } from '../../../../../types/models';
 import { useAuth } from '../../../custom-hooks';
-
-
 import './Auth.css';
 import { Redirect } from 'react-router-dom';
 
@@ -21,10 +19,7 @@ const defaultCredentials: Partial<IUser> = {
 const Auth: FC<{}> = () => {
     const [isLoggingIn, setLoggingIn] = useState(false);
     const [credentials, setCredentials] = useState(defaultCredentials)
-    const {user, error, authenticate} = useAuth(
-        credentials, 
-        isLoggingIn
-      );
+    const {user, error, authenticate} = useAuth(credentials, isLoggingIn);
     
     useEffect(() => {
       const stringifiedUser = JSON.stringify(user);
@@ -41,7 +36,9 @@ const Auth: FC<{}> = () => {
     const toggleIsLoggedIn = useCallback(() => setLoggingIn(curr => !curr),[]);
 
     if(user) {
-      return <Redirect to="/chat" />
+
+
+      return <Redirect to="/" />
     }
 
     return (

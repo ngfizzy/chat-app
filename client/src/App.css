@@ -9,3 +9,11 @@
   font-family: 'Lobster', cursive;
   color: rgb(95, 157, 251);
 }
+
+.Clickable {
+  cursor: pointer;
+}
+
+.Clickable:hover{
+  opacity: .9;
+}

@@ -6,12 +6,18 @@ const baseURL = process.env.NODE_ENV === 'production' ? '/api/' : ' http://192.1
 const instance = axios.create({ baseURL });
 
 instance.interceptors.request.use((config) => {
-    const authStr = localStorage.getItem('auth');
+    const authStr = localStorage.getItem('session');
 
     if(authStr) {
-      const auth = JSON.parse(authStr) as IUser;
 
-      config.headers.authorization = `Bearer ${auth.token}`;
+      try {
+        const auth = JSON.parse(authStr) as IUser;
+        config.headers.authorization = `Bearer ${auth.token}`;
+
+      } catch {
+        // just continue
+      }
+
     }
 
     return config;

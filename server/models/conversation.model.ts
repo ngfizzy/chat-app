@@ -15,5 +15,5 @@ const schema = new Schema({
 export interface ConversationDoc extends Document, Omit<IConversation, '_id'> {}
 export const Conversation = model<
     ConversationDoc
-  >('User', schema);
+  >('Conversation', schema);
 

@@ -4,11 +4,11 @@ export const MultilineText:FC<{text: string}> = ({ text }) => {
   return (
     <>
       {
-        text.split('\n').map(paragraph =>
-          <p className="p">
+        text.split('\n').map((paragraph, index) => (
+          <p className="p" key={index}>
             {paragraph}
           </p>
-        )
+        ))
       }
     </>
   )

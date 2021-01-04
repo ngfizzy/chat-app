@@ -7,7 +7,7 @@ import { User } from '../models';
 export class SearchController {
   constructor(private user: typeof User) {}
 
-  async searchUser({searchTerm}): Promise<UsersResponse> {
+  async searchUser({searchTerm}: { searchTerm: string }): Promise<UsersResponse> {
     const users = await this.user.find({
       name: {
         $regex: searchTerm, 

@@ -24,7 +24,7 @@ export const useAuth = (credentials: Partial<IUser>, isLoggingIn: boolean) => {
       setError('');
     } catch(err) {
       const {response} = err;
-      const message = response ? response.data.message : 'Something went wrong'
+      const message = response ? response.data.message : 'Something went wrong';
 
       setError(message);
     }

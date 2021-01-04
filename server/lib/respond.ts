@@ -14,7 +14,7 @@ class Responder  {
   
       return this; 
   }
-  async withPayload<T>(payload: T, validator?: Joi.ObjectSchema)  {
+  async withPayload<T>(payload?: T, validator?: Joi.ObjectSchema)  {
 
       if(!this.controllerFn) {
           throw new Error('Error: Wrong usage. call responder.using(fn).withPayload(payload)');
@@ -45,7 +45,7 @@ class Responder  {
             return this.res.json(result);
         }
 
-          return this.res.status(result.status).json(result);
+        return this.res.status(result.status).json(result);
       } catch(e) {
           return this.res.status(500).json({
               error: true,

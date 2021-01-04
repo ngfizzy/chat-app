@@ -1,0 +1,5 @@
+.SearchResults {
+  display: fixed;
+  min-height: 50vh;
+  max-height: 90vh;
+}

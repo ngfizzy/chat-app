@@ -3,7 +3,8 @@ import cors from 'cors';
 import express, { Response, Request } from 'express';
 import {connect, set as setMongooseConfig } from 'mongoose';
 import {createServer} from 'http';
-import { authRouter } from './routes';
+import { authRouter, userRouter, conversationRouter } from './routes';
+import { authMiddleware } from './middleware';
 
 dotenv.config();
 
@@ -14,10 +15,12 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (_:Request, res: Response) => {
-    res.json({message: 'hello'})
+    res.json({message: 'hello'});
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api/users', authMiddleware, userRouter);
+app.use('/api/conversations', authMiddleware, conversationRouter)
 
 
 setMongooseConfig('useCreateIndex', true);

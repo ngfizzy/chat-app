@@ -24,8 +24,8 @@ export interface IConversation {
   _id?: string;
   parties: IUser[];
   messages: IMessage[]
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface IMessage {
@@ -44,6 +44,9 @@ export interface UsersResponse extends BaseRes {
   users: IUser[]
 }
 
+export interface ConversationResponse extends BaseRes {
+  conversation: IConversation | null;
+}
 
 
 export interface IAuthContext  {

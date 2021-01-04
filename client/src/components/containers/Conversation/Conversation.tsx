@@ -73,7 +73,7 @@ const initialConversations = {
       text:  'Oh. True.  \n I would need to send you thatI\'ll need to send you that. I guess you have signal installed.',
     },
     {
-      id: '123ana4',
+      id: '123anga4',
       user: { 
         id: '1',
         name:  'Olufisayo Bamidele',
@@ -97,7 +97,7 @@ const initialConversations = {
       `
     },
     {
-      id: 'aaaarra',
+      id: 'aaaarzra',
       user: { 
         id: '1',
         name:  'Bryant Wayama',
@@ -147,6 +147,5 @@ export const Conversation:FC = () => {
         </div>
       )
     }
-
   </div>
 };
