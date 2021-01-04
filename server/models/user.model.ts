@@ -6,6 +6,7 @@ const schema = new Schema({
   email: {type: String, unique: true},
   username: {type: String, unique: true},
   password: String,
+  conversations: {type: [Schema.Types.ObjectId], ref: 'Conversation'}
 }, { timestamps: true});
 
 schema.index({name: 'text'});

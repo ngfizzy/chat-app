@@ -6,31 +6,32 @@ import { User } from '../models';
 @boundClass
 export class SearchController {
   constructor(private user: typeof User) {}
-
   async searchUser({searchTerm}: { searchTerm: string }): Promise<UsersResponse> {
-    const users = await this.user.find({
-      name: {
-        $regex: searchTerm, 
-        $options: 'i'
+    try {
+      const users = await this.user.find({
+        name: {
+          $regex: searchTerm, 
+          $options: 'i'
+        }
+      });
+      
+      if(!users) {
+        throw new Error('not found');
       }
-    });
-    
-    if(!users) {
-      throw new Error('not found');
-    }
 
-    return {
-      users,
-      message: 'found in successfully',
-      error: false,
-      status: 200
-    }
-  } catch() {
-    return {
-      users: [],
-      message: 'Not found',
-      error: false,
-      status: 404
+      return {
+        users,
+        message: 'found in successfully',
+        error: false,
+        status: 200
+      }
+    } catch {
+      return {
+        users: [],
+        message: 'Not found',
+        error: false,
+        status: 404
+      }
     }
   }
 }

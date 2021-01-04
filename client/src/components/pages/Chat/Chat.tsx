@@ -1,18 +1,16 @@
-import React, {  } from 'react';
+import React, { useContext } from 'react';
 import { Col, Container,Row } from 'react-bootstrap';
 import { ConversationsList } from '../../containers/ConversationsList';
 import { Conversation } from '../../containers/Conversation';
-// import { AuthContext } from '../../../store/AuthContext';
+import { AuthContext } from '../../../store/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-
 import './Chat.css';
 
 
-
 export const Chat = () => {
-    // const {user}=  useContext(AuthContext)!;
-  
+    const {user}=  useContext(AuthContext)!;
+
     return <Container fluid>
       <Row as='main' className="Chat">
         <Col xs={12} xl={8} className="h-100 mx-auto rounded">
@@ -21,7 +19,7 @@ export const Chat = () => {
                 <header className="p-3 pb-0 ChatBorder Header">
                   <h3 className="font-weight-bold">Chats</h3>
                 </header>
-                <ConversationsList/>
+                <ConversationsList user={user!}/>
             </Col>
           
             <Col as="section" xs={12} sm={8}  lg={9} className="rounded">

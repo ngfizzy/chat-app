@@ -15,5 +15,3 @@ export class Auth {
     return this.http.post<AuthResponse>(`${this.authBasePath}/login`, data);
   }
 }
-
-

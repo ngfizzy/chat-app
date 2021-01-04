@@ -1,13 +1,20 @@
-import { HttpClient, ConversationResponse } from '../../../types/models';
-
+import { 
+  HttpClient,
+  ConversationResponse , 
+  ConversationsResponse
+} from '../../../types/models';
 
 export class Conversation {
   private conversationBasePath = 'conversations';
 
   constructor(private http: HttpClient) {}
 
-  async  initConversation(conversationId: string) {
+  initConversation(conversationId: string) {
     return this.http.get<ConversationResponse>(`${this.conversationBasePath}/${conversationId}`);
+  }
+
+  getMyConversations() {
+    return this.http.get<ConversationsResponse>(`${this.conversationBasePath}`);
   }
 }
 

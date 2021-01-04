@@ -1,7 +1,7 @@
 
 import { boundClass } from 'autobind-decorator';
 
-import { ConversationResponse } from '../../types/models';
+import { ConversationResponse, ConversationsResponse } from '../../types/models';
 import { Conversation, User } from '../models';
 
 
@@ -11,14 +11,12 @@ export class ConversationController {
 
   async initConversation({
       recipientId,
-      userId
-  }: {recipientId: string; userId: string;}): Promise<ConversationResponse> {
-
-  
+      currentUserId
+  }: {recipientId: string; currentUserId: string;}): Promise<ConversationResponse> {
+      currentUserId
     try {
-
       const recipient = await this.user.findById(recipientId);
-      const me = await this.user.findById(userId);
+      const me = await this.user.findById(currentUserId);
       const parties = [];
 
       const userError = {
@@ -48,6 +46,10 @@ export class ConversationController {
 
       if(!conversation) {
         conversation = await this.conversation.create({ parties, messages: [] });
+        me.conversations?.push(conversation);
+        recipient.conversations?.push(conversation);
+        await me.save();
+        await recipient.save()
       }
 
       return {
@@ -64,6 +66,44 @@ export class ConversationController {
         conversation: null,
       };
     }
+  }
+
+  async getUserConversations(
+    {currentUserId}: {currentUserId: string}
+  ): Promise<ConversationsResponse> {
+    try {
+      const currentUser = await this.user.findById(currentUserId);
+      if(currentUser) {
+        // const {conversations} = currentUser.toJSON();
+        const myConvos = await this.conversation.find({ parties: {$in: [currentUser ]}})
+          .populate({
+            'path': 'parties',
+            'model': 'User'
+          });
+
+        return {
+          conversations: myConvos || [],
+          error: false,
+          status: 200,
+          message: 'conversations fetches successfully'
+        };
+      }
+
+      return {
+        conversations: [],
+        error: false,
+        status: 404,
+        message: 'Could not find current user'
+      };
+    } catch {
+      return {
+        message: 'something went wrong',
+        error: true,
+        status: 500,
+        conversations: []
+      };
+    }
+   
   }
 }
 

@@ -17,13 +17,15 @@ export interface IUser {
   email: string;
   password?: string;
   token?: string;
+  conversations?: IConversation[]
 }
 
 
 export interface IConversation {
   _id?: string;
   parties: IUser[];
-  messages: IMessage[]
+  messages: IMessage[];
+  lastMessage?: Message;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -48,6 +50,9 @@ export interface ConversationResponse extends BaseRes {
   conversation: IConversation | null;
 }
 
+export interface ConversationsResponse extends BaseRes {
+  conversations: IConversation[]
+}
 
 export interface IAuthContext  {
   user?: IUser

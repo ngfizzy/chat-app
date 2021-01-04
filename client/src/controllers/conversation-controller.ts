@@ -8,4 +8,9 @@ export class ConversationController {
     return this.api.initConversation(conversationId)
       .then(({data: { conversation }}) => conversation);
   }
+
+  getMyConversations() {
+    return this.api.getMyConversations()
+      .then(({data: { conversations }}) => conversations);
+  }
 }
