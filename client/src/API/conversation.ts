@@ -27,7 +27,6 @@ export class Conversation {
   }
 
   createMessage(conversationId: string, message: Partial<IMessage>) {
-    console.log('conversationId', conversationId, 'message', message);
     return this.http.post<MessageResponse>(
       `${this.conversationBasePath}/${conversationId}/messages`,
         message

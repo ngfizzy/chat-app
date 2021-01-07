@@ -27,7 +27,8 @@ export const AppNavBar:FC = () => {
 
   const [ searchTerm, setSearchTerm ] = useState('');
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
-  const { setParticipantId } = useContext(ConversationContext);;
+  const { setParticipantId} = useContext(ConversationContext);;
+
 
   useEffect(() => {
       setSearchResults(() => users);
@@ -112,7 +113,10 @@ export const AppNavBar:FC = () => {
               {searchResults.map((result, index) =>
                 <ListGroup.Item
                   variant={index % 2 > 0 ? 'dark': 'light'}
-                  onClick={() => setUser(result)}
+                  onClick={() => {
+                    setUser(result)
+                    setIsShowingUsers(false);
+                  }}
                   className="text-capitalize Clickable" key={result._id}>
                   {result.name}
                 </ListGroup.Item> 

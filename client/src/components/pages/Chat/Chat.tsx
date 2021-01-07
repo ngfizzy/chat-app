@@ -31,6 +31,14 @@ export const Chat = () => {
     const sendMessage = (e: React.FormEvent) => {
       e.preventDefault();
       createMessage && createMessage(messageText)
+      setMessegeText(() => '');
+    }
+
+    const onEnterPress = (e: React.KeyboardEvent) => {
+      if(e.keyCode === 13 && e.shiftKey === false) {
+        e.preventDefault();
+        sendMessage(e);
+      }
     }
 
     return <Container fluid>
@@ -86,7 +94,9 @@ export const Chat = () => {
                       sm={10}
                       md={11}
                       xs={11}
+                      value={messageText}
                       onChange={handleMessageTyped}
+                      onKeyDown={onEnterPress}
                     ></Col>
                       {/* Send button */}
                     <Col
