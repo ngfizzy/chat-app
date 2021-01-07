@@ -3,7 +3,7 @@
 .ConversationSummary  {
   display: flex;
   flex-direction: column;
-  height: 6rem;
+  max-height: 6rem;
   overflow: hidden;
 }
 

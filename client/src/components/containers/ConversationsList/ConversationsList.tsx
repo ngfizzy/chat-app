@@ -1,59 +1,76 @@
-import React, { FC, useCallback, useState, useEffect } from 'react'
+import React, { FC, useCallback, useState, useEffect, useContext } from 'react'
 import { ConversationSummary } from '../../presentation/ConversationSummary'
 import { ProfileIcon } from '../../presentation/ProfileIcon'
 import { IConversation, IUser } from '../../../../../types/models'
 import { conversationController } from '../../../controllers'
+import { ConversationContext } from '../../../store';
+import { getConversationName } from '../../../utils';
 import './ConversationsList.css'
-
-const getChatName = (parties: IUser[], currentUserId: string) => {
-  const receiver =  parties.filter(party => party._id !== currentUserId) || [] ;
-  
-  if(receiver?.length) {
-    return receiver?.pop()?.name || '';
-  }
-
-  const [sender, reciever] = parties;
-
-  return sender.username === reciever.username ? sender.name : '';
-};
 
 export const ConversationsList: FC<{user: IUser }> = ({user}) => {
   const [conversations, setConversations] = useState<IConversation[]>([]);
-  const [selectedId, setSelectedId] = useState('');
+  const { conversation, setParticipantId } = useContext(ConversationContext);
 
-  const select = (conversationId: string) => 
-    () => setSelectedId(conversationId);
-  const selectCallback =  useCallback(select, []);
+  const select = (convo: IConversation) => {
+    const convoParty = convo.parties.find(
+      party => party._id !== user._id
+    );
+
+    let id: string;
+
+    if(convoParty) {
+      id = convoParty._id!;
+    } else if(convo.parties.length){
+        id = convo.parties[0]._id!;
+    } else {
+      id = '';
+    }
+
+    return () => {
+      setParticipantId!(id);
+    }
+  }
+  const selectCallback =  useCallback(select, [setParticipantId]);
 
   useEffect(() => {
-  conversationController.getMyConversations()
-    .then((convos) => {
-      setConversations(convos);
-    });
-  }, []);
+    conversationController.getMyConversations()
+      .then((convos) => {
+        setConversations(convos);
+      });
+  }, [setConversations]);
+
+
+  if(!conversations?.length) {
+    return <h5 className="text-muted text-center mt-5">
+      Use the search box to look for people
+    </h5>
+  }
 
   return (
     <div className="ConversationsList">
       {conversations
-        .map(conversation => (
-          conversation.parties.length > 1 ?
+        .map(convo => (
+          convo.parties.length > 1 ?
             <div 
-              key={conversation._id!}
+              key={convo._id!}
               className={
-                `p-1 mb-1 ConversationListItem 
-                ${selectedId === conversation._id? 'selected' : ''}`
+                `p-1 mb-1 mt-3 ConversationListItem 
+                ${convo._id === conversation?._id? 'selected' : ''}`
               }
-              onClick={selectCallback(conversation._id!)}
+              onClick={selectCallback(convo)}
             >
-              <ProfileIcon name={getChatName(conversation.parties, user._id!)} />
+              <ProfileIcon
+                name={getConversationName(convo.parties, user._id!)}
+              />
               <ConversationSummary
-                name={getChatName(conversation.parties, user._id!)} 
-                message={conversation.lastMessage || ''} />
+                name={getConversationName(convo.parties, user._id!)}
+                message={convo.lastMessage?.text || ''}
+              />
             </div>: null
-
           )
         )
       }
     </div>
   );
 }
+

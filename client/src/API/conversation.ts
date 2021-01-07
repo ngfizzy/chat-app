@@ -1,7 +1,10 @@
 import { 
   HttpClient,
   ConversationResponse , 
-  ConversationsResponse
+  ConversationsResponse,
+  MessagesResponse,
+  MessageResponse,
+  IMessage
 } from '../../../types/models';
 
 export class Conversation {
@@ -15,6 +18,20 @@ export class Conversation {
 
   getMyConversations() {
     return this.http.get<ConversationsResponse>(`${this.conversationBasePath}`);
+  }
+
+  getConversationMessages(conversationId: string) {
+    return this.http.get<MessagesResponse>(
+        `${this.conversationBasePath}/${conversationId}/messages`
+      );
+  }
+
+  createMessage(conversationId: string, message: Partial<IMessage>) {
+    console.log('conversationId', conversationId, 'message', message);
+    return this.http.post<MessageResponse>(
+      `${this.conversationBasePath}/${conversationId}/messages`,
+        message
+    );
   }
 }
 

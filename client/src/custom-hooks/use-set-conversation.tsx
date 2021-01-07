@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { IConversation } from '../../../types/models';
 import {conversationController} from '../controllers';
 
@@ -15,5 +15,12 @@ export const useSetConversation = () => {
     }
   }, [participantId]);
 
-  return { conversation, setParticipantId };
+
+
+  return {
+    conversation,
+    setParticipantId: useCallback((id: string) => {
+      setParticipantId(id); 
+    }, [setParticipantId]),
+  };
 }

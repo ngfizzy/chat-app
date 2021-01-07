@@ -11,9 +11,11 @@ import {
   ListGroup,
   Row
 } from 'react-bootstrap';
-import { useUsers, useSetConversation } from '../../../custom-hooks';
+import { useUsers } from '../../../custom-hooks';
 import { IUser } from '../../../../../types/models';
 import { AuthContext } from '../../../store/AuthContext';
+import { ConversationContext } from '../../../store/ConversationContext';
+
 
 import './AppNavBar.css';
 
@@ -25,7 +27,7 @@ export const AppNavBar:FC = () => {
 
   const [ searchTerm, setSearchTerm ] = useState('');
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
-  const { setParticipantId } = useSetConversation();
+  const { setParticipantId } = useContext(ConversationContext);;
 
   useEffect(() => {
       setSearchResults(() => users);
@@ -33,7 +35,7 @@ export const AppNavBar:FC = () => {
 
   useEffect(() => {
     if(user) {
-      setParticipantId(user._id!)
+      setParticipantId!(user._id!)
     }
   }, [user, setParticipantId]);
 

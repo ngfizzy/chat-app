@@ -15,11 +15,14 @@ import Auth from './components/pages/Auth';
 import { Col, Row } from 'react-bootstrap';
 
 import { AppNavBar } from './components/containers/AppNavBar';
+import { ConversationProvider } from './store/ConversationContext';
+
 
 function App() {
   return (
     <Row as="div" className="App">
       <AuthProvider>
+        <ConversationProvider>
           <AppNavBar />
           <Col xs={12} className="p-0">
             <Router>
@@ -30,6 +33,7 @@ function App() {
               </Switch>
             </Router>
           </Col>
+        </ConversationProvider>
       </AuthProvider>
     </Row>
   );

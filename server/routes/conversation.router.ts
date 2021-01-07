@@ -3,7 +3,7 @@ import {
   conversationController,
 } from '../controllers/conversation.controller';
 import { respond } from '../lib';
-import { initConversationValidator } from '../validators';
+import { createMessageValidator, initConversationValidator, getMessagesValidator } from '../validators';
 
 const conversationRouter = Router();
 
@@ -29,4 +29,25 @@ conversationRouter.get('/', (_: Request, res: Response) => {
     .withPayload(partiesIds);
 });
 
+conversationRouter.post('/:id/messages', (req: Request, res: Response) => {
+  console.log('req>>>>>> param', req.params.id)
+  return respond(res)
+  .using(conversationController.createMessage)
+  .withPayload(
+    {
+      ...req.body,
+      conversationId: req.params.id,
+      userId: res.locals.user._id,
+    },
+    createMessageValidator
+  )
+});
+
+conversationRouter.get('/:id/messages',(req, res) => respond(res)
+  .using(conversationController.getMessages)
+  .withPayload({
+    conversationId: req.params.id,
+    userId: res.locals.user._id
+  }, getMessagesValidator))
 export { conversationRouter };
+

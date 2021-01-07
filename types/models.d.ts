@@ -25,7 +25,7 @@ export interface IConversation {
   _id?: string;
   parties: IUser[];
   messages: IMessage[];
-  lastMessage?: Message;
+  lastMessage?: IMessage;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -33,7 +33,8 @@ export interface IConversation {
 export interface IMessage {
   _id?: string;
   author: IUser;
-  text: Date;
+  text: string;
+  conversation?: IConversation | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -54,6 +55,13 @@ export interface ConversationsResponse extends BaseRes {
   conversations: IConversation[]
 }
 
+export interface MessageResponse extends BaseRes {
+  chatMessage: IMessage | null;
+}
+
+export interface MessagesResponse extends BaseRes {
+  chatMessages: IMessage[];
+}
 export interface IAuthContext  {
   user?: IUser
   setUser: (value: IUser) => any;

@@ -36,4 +36,4 @@ connect(
   httpServer.listen(process.env.PORT, () => {
     console.log(`Server started successfully on port ${process.env.PORT}. 🚀'`);
   });
-})
+});

@@ -1,19 +1,28 @@
 
 import { boundClass } from 'autobind-decorator';
 
-import { ConversationResponse, ConversationsResponse } from '../../types/models';
-import { Conversation, User } from '../models';
+import {
+  ConversationResponse,
+  ConversationsResponse,
+  IMessage,
+  MessageResponse,
+  IUser,
+  MessagesResponse 
+} from '../../types/models';
+import { Conversation, User, Message, ConversationDoc, MessageDoc } from '../models';
 
 
 @boundClass
 export class ConversationController {
-  constructor(private conversation: typeof Conversation, private user: typeof User) {}
+  constructor(
+    private conversation: typeof Conversation,
+    private user: typeof User,
+    private message: typeof Message) {}
 
   async initConversation({
       recipientId,
       currentUserId
   }: {recipientId: string; currentUserId: string;}): Promise<ConversationResponse> {
-      currentUserId
     try {
       const recipient = await this.user.findById(recipientId);
       const me = await this.user.findById(currentUserId);
@@ -38,18 +47,22 @@ export class ConversationController {
         return userError;
       }
 
-
-      let conversation = await this.conversation.findOne({
-        parties
-      });
-
+      let conversation = await this.conversation.findOne({ parties: { $in: parties }})
+        .populate({ path: 'parties', model: 'User'});
 
       if(!conversation) {
-        conversation = await this.conversation.create({ parties, messages: [] });
+        conversation = new this.conversation();
+
+        conversation.parties = parties
         me.conversations?.push(conversation);
         recipient.conversations?.push(conversation);
+
         await me.save();
         await recipient.save()
+        await conversation.save()
+
+        conversation = await this.conversation.findById(conversation._id)
+          .populate({ path: 'parties', model: 'User'});
       }
 
       return {
@@ -74,15 +87,15 @@ export class ConversationController {
     try {
       const currentUser = await this.user.findById(currentUserId);
       if(currentUser) {
-        // const {conversations} = currentUser.toJSON();
-        const myConvos = await this.conversation.find({ parties: {$in: [currentUser ]}})
-          .populate({
-            'path': 'parties',
-            'model': 'User'
-          });
+        const conversations = await this.conversation.find({ parties: {$in: [currentUser]}})
+        .populate({
+          'path': 'parties',
+          'model': 'User'
+        })
+        .sort({updatedAt: -1});
 
         return {
-          conversations: myConvos || [],
+          conversations: conversations || [],
           error: false,
           status: 200,
           message: 'conversations fetches successfully'
@@ -103,8 +116,119 @@ export class ConversationController {
         conversations: []
       };
     }
-   
+  }
+
+  async createMessage(message: IMessage & {userId: any, conversationId: string;}): Promise<MessageResponse> {
+
+    console.log('Before try block', message)
+
+    try {
+      const conversation = await this.conversation.findById(message.conversationId);
+      const error = this.verifyOwnership(message.userId, conversation) as MessageResponse;
+
+      if(error) { 
+        return error;
+      }
+
+      message.author = await this.user.findById(message.userId) as IUser;
+      message.conversation = conversation;
+
+      let chatMessage = new this.message(message);
+
+      conversation!.messages.push(chatMessage!);
+      conversation!.lastMessage = chatMessage!;
+
+      chatMessage = await chatMessage.save();
+      await conversation!.save();
+            
+      chatMessage = await this.message.findById(chatMessage._id)
+        .populate({
+          path: 'author',
+          model: 'User',
+        }) as MessageDoc;
+
+      return {
+        chatMessage,
+        error: false,
+        status: 200,
+        message: 'chat sent successfully',
+      };
+    } catch {  
+      return {
+        chatMessage: null,
+        error: false,
+        status: 500,
+        message: 'an error occurred while sending',
+      };
+    } 
+  }
+
+  async getMessages(
+    {
+      userId,
+      conversationId
+    }:{userId: string; conversationId: string;}
+  ): Promise<MessagesResponse>{
+    try {
+      let conversation = await this.conversation.findById(conversationId)
+        .populate({
+          path: 'messages',
+          model: 'Message',
+          populate: {
+            path: 'author',
+            model: 'User'
+          }
+        })
+        .populate({
+          path: 'parties',
+          model: 'User'
+        });
+
+        console.log('get messages>>>>>>>>>>>>>>>After fetching conversation>>>>>>..', conversation)
+
+
+      const error = this.verifyOwnership(userId, conversation) as MessagesResponse;
+
+        if(error) {
+          return error;
+        }
+      
+        return {
+           chatMessages:  conversation?.messages || [],
+           error: false,
+           message: 'success',
+           status: 200
+        };
+      } catch(e) {
+        return {
+          chatMessages: [],
+          error: false,
+          status: 500,
+          message: 'an error occurred while sending',
+        };
+      }
+
+  }
+
+  verifyOwnership(userId: any, conversation?: ConversationDoc | null ) {
+    if(!conversation) {
+      return {
+        message: 'message can only occur in a conversation',
+        status: 422,
+        error: true,
+      }
+    }
+
+    if(!conversation.parties.some(party => party.id === userId)) {
+      return {
+        message: 'Forbidden',
+        status: 403,
+        error: true,
+      }
+    }
+
+    return null
   }
 }
 
-export const conversationController = new ConversationController(Conversation, User);
+export const conversationController = new ConversationController(Conversation, User, Message);
