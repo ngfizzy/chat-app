@@ -5,7 +5,6 @@ import { MultilineText } from '../../presentation/MultilineText';
 import { ConversationContext, AuthContext }  from '../../../store';
 import './Conversation.css';
 
-
 const getMessageClass = (authorId?: string, userId?: string) => {
   let cssClass = 'my-2 ';
 

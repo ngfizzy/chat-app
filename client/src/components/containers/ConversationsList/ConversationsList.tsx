@@ -9,13 +9,16 @@ import './ConversationsList.css'
 
 export const ConversationsList: FC<{user: IUser }> = ({user}) => {
   const [conversations, setConversations] = useState<IConversation[]>([]);
-  const { conversation, setParticipantId } = useContext(ConversationContext);
+  const {
+    conversation,
+    setParticipantId,
+    setShowConversationsList
+  } = useContext(ConversationContext);
 
   const select = (convo: IConversation) => {
     const convoParty = convo.parties.find(
       party => party._id !== user._id
     );
-
     let id: string;
 
     if(convoParty) {
@@ -28,6 +31,9 @@ export const ConversationsList: FC<{user: IUser }> = ({user}) => {
 
     return () => {
       setParticipantId!(id);
+      if(window.innerWidth <= 768) {
+        setShowConversationsList!((show: boolean) => !show);
+      }
     }
   }
   const selectCallback =  useCallback(select, [setParticipantId]);
@@ -36,6 +42,7 @@ export const ConversationsList: FC<{user: IUser }> = ({user}) => {
     conversationController.getMyConversations()
       .then((convos) => {
         setConversations(convos);
+
       });
   }, [setConversations]);
 
