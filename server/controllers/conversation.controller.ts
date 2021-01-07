@@ -119,11 +119,12 @@ export class ConversationController {
   }
 
   async createMessage(message: IMessage & {userId: any, conversationId: string;}): Promise<MessageResponse> {
-
-    console.log('Before try block', message)
-
     try {
-      const conversation = await this.conversation.findById(message.conversationId);
+      const conversation = await this.conversation.findById(message.conversationId)
+        .populate({
+          path: 'parties',
+          model: 'User',
+        });
       const error = this.verifyOwnership(message.userId, conversation) as MessageResponse;
 
       if(error) { 
@@ -147,13 +148,14 @@ export class ConversationController {
           model: 'User',
         }) as MessageDoc;
 
+
       return {
         chatMessage,
         error: false,
         status: 200,
         message: 'chat sent successfully',
       };
-    } catch {  
+    } catch(e) {  
       return {
         chatMessage: null,
         error: false,
@@ -183,9 +185,6 @@ export class ConversationController {
           path: 'parties',
           model: 'User'
         });
-
-        console.log('get messages>>>>>>>>>>>>>>>After fetching conversation>>>>>>..', conversation)
-
 
       const error = this.verifyOwnership(userId, conversation) as MessagesResponse;
 

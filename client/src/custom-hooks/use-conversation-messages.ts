@@ -4,7 +4,7 @@ import {conversationController} from '../controllers';
 import { IMessage } from '../../../types/models'
 
 export const useConversationMessages = (conversationId: string = '') => {
-  const [conversationMessages, setConversationMessages] = useState<IMessage[]>();
+  const [conversationMessages, setConversationMessages] = useState<IMessage[]>([]);
   const createMessage = (text: string) => {
       const message: Partial<IMessage> = {text};
 
@@ -14,11 +14,11 @@ export const useConversationMessages = (conversationId: string = '') => {
           message
       )
       .then((chatMessage) => {
-        console.log('>>>>>>>>>>>>>>>>Chat Message>>', chatMessage);
+        
+        if(chatMessage) {
+          setConversationMessages(messages => [...messages, chatMessage]);
+        }
       })
-      .catch(e => {
-        console.log('Error>> Creating >>>>>>>>>>>>>>>>>.error', e);
-      });
   } 
 
   useEffect(() => {
@@ -26,9 +26,7 @@ export const useConversationMessages = (conversationId: string = '') => {
       conversationController.getConversationMessages(conversationId)
         .then(messages => {
           setConversationMessages(() => messages);
-        })
-        .catch((e) => console.log('>>>>>>>>>>>>error>>>>>>>>', e));
-    }
+        });    }
   }, [conversationId]);
 
   return { conversationMessages, createMessage,  };

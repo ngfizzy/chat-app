@@ -20,7 +20,6 @@ export const Chat = () => {
       createMessage,
     } = useConversationMessages(conversation?._id);
 
-    console.log('conversation Id in chat', conversation?._id)
     const handleMessageTyped = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setMessegeText(e.target.value);
     };

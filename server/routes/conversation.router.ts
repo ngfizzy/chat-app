@@ -30,7 +30,6 @@ conversationRouter.get('/', (_: Request, res: Response) => {
 });
 
 conversationRouter.post('/:id/messages', (req: Request, res: Response) => {
-  console.log('req>>>>>> param', req.params.id)
   return respond(res)
   .using(conversationController.createMessage)
   .withPayload(

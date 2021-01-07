@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IUser } from '../../types/models';
 
 
-const baseURL = process.env.NODE_ENV === 'production' ? '/api/' : ' http://192.168.8.100:5000/api/'
+const baseURL = process.env.NODE_ENV === 'production' ? '/api/' : ' http://192.168.8.103:5000/api/'
 const instance = axios.create({ baseURL });
 
 instance.interceptors.request.use((config) => {
@@ -17,7 +17,6 @@ instance.interceptors.request.use((config) => {
       } catch {
         // just continue
       }
-
     }
 
     return config;

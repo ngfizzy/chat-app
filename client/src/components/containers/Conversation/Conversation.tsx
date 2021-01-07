@@ -27,9 +27,6 @@ export const Conversation:FC = () => {
     conversationMessages: messages,
   } = useConversationMessages(conversation?._id);
 
-  console.log('messages>>>>>>>>>>>>>.', messages)
-  
-
   return <div className="Conversation">
     {
       messages?.map(message =>

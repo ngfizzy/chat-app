@@ -19,7 +19,6 @@ export class ConversationController {
   }
 
   createConversationMessage(conversationId: string, message: Partial<IMessage>) {
-    console.log('in controller.>>>>>>>>>>>>>.', conversationId, '>>>>>>>>>>.', message)
     return this.api.createMessage(conversationId, message)
       . then(({data: { chatMessage }}) => chatMessage);
   }
