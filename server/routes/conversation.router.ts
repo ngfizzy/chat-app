@@ -31,15 +31,15 @@ conversationRouter.get('/', (_: Request, res: Response) => {
 
 conversationRouter.post('/:id/messages', (req: Request, res: Response) => {
   return respond(res)
-  .using(conversationController.createMessage)
-  .withPayload(
-    {
-      ...req.body,
-      conversationId: req.params.id,
-      userId: res.locals.user._id,
-    },
-    createMessageValidator
-  )
+    .using(conversationController.createMessage)
+    .withPayload(
+      {
+        ...req.body,
+        conversationId: req.params.id,
+        userId: res.locals.user._id,
+      },
+      createMessageValidator
+    )
 });
 
 conversationRouter.get('/:id/messages',(req, res) => respond(res)

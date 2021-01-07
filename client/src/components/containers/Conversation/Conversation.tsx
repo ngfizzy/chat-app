@@ -2,7 +2,6 @@ import React, {FC,useContext} from 'react';
 import TimeAgo from 'react-timeago';
 import { ProfileIcon } from '../../presentation/ProfileIcon';
 import { MultilineText } from '../../presentation/MultilineText';
-import { useConversationMessages } from '../../../custom-hooks';
 import { ConversationContext, AuthContext }  from '../../../store';
 import './Conversation.css';
 
@@ -21,11 +20,7 @@ const getMessageClass = (authorId?: string, userId?: string) => {
 
 export const Conversation:FC = () => {
   const {user}=  useContext(AuthContext)!;
-  const { conversation}  = useContext(ConversationContext);
-
-  const {
-    conversationMessages: messages,
-  } = useConversationMessages(conversation?._id);
+  const { conversationMessages: messages }  = useContext(ConversationContext);
 
   return <div className="Conversation">
     {

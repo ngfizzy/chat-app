@@ -5,20 +5,17 @@ import { Conversation } from '../../containers/Conversation';
 import { AuthContext, ConversationContext } from '../../../store/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import { useConversationMessages } from '../../../custom-hooks';
 import {getConversationName} from '../../../utils'
 import './Chat.css';
 
 
 export const Chat = () => {
     const {user}=  useContext(AuthContext)!;
-    const {conversation} =  useContext(ConversationContext);
+    const {conversation, createMessage } =  useContext(ConversationContext);
 
     const [messageText, setMessegeText] = useState('');
 
-    const {
-      createMessage,
-    } = useConversationMessages(conversation?._id);
+ 
 
     const handleMessageTyped = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setMessegeText(e.target.value);
@@ -27,7 +24,7 @@ export const Chat = () => {
     const sendMessage = (e: React.FormEvent) => {
       e.preventDefault();
 
-      createMessage(messageText)
+      createMessage && createMessage(messageText)
     }
 
     return <Container fluid>
