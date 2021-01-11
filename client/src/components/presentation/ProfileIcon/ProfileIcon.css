@@ -1,0 +1,12 @@
+.ProfileIcon {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+  background-color: #948c8c;
+  flex-shrink: 0;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: rgb(206, 201, 201);
+}
