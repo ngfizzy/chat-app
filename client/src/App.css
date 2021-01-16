@@ -1,0 +1,19 @@
+.App {
+  min-height: 100vh;
+  background-color: #e9ebfa;
+  overflow: hidden;
+}
+
+
+.NavBrand {
+  font-family: 'Lobster', cursive;
+  color: rgb(95, 157, 251);
+}
+
+.Clickable {
+  cursor: pointer;
+}
+
+.Clickable:hover{
+  opacity: .9;
+}
