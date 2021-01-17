@@ -17,16 +17,16 @@ export class AuthController {
       user: null,
       status: 401
     };
-  
+
     try {
       let found = await this.user.findOne({
           email: credentials.username,
-      });
-  
+      }, '+password');
+
       if(!found) {
         found = await this.user.findOne({
           username: credentials.username,
-        });
+        }, '+password');
       }
 
       if(!found) {
@@ -93,7 +93,7 @@ export class AuthController {
     }
 
     try {
-      let existing = await this.user.findOne({ email });
+      let existing = await this.user.findOne({ email }, '+password');
 
       if (existing) {
         error.message = 'Email already exist';
@@ -101,7 +101,7 @@ export class AuthController {
         return error;
       }
 
-      existing = await this.user.findOne({ username });
+      existing = await this.user.findOne({ username }, '+password');
 
 
       if(existing) {

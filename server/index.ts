@@ -32,7 +32,7 @@ connect(
   },
 ).then(() => {
   console.log('Database connected successfully 🚀');
-  
+
   httpServer.listen(process.env.PORT, () => {
     console.log(`Server started successfully on port ${process.env.PORT}. 🚀'`);
   });

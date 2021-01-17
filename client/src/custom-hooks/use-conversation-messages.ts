@@ -8,21 +8,22 @@ export const useConversationMessages = (conversationId: string = '') => {
   const createMessage = (text: string) => {
       const message: Partial<IMessage> = {text};
 
-
+    if(conversationId) {
       conversationController.createConversationMessage(
-          conversationId,
+        conversationId,
           message
       )
       .then((chatMessage) => {
-        
         if(chatMessage) {
           setConversationMessages(messages => [...messages, chatMessage]);
         }
       })
-  } 
+    }
+
+  }
 
   useEffect(() => {
-    if(conversationId) {
+=    if(conversationId) {
       conversationController.getConversationMessages(conversationId)
         .then(messages => {
           setConversationMessages(() => messages);

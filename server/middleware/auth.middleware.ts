@@ -6,6 +6,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   const bearerToken = req.headers.authorization;
   const tokenOnly = (bearerToken || '').split('Bearer ')[1];
 
+
   if(!tokenOnly) {
       return res.status(401).json({
           message: 'Unauthorized',

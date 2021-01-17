@@ -1,6 +1,6 @@
-import { 
+import {
   HttpClient,
-  ConversationResponse , 
+  ConversationResponse ,
   ConversationsResponse,
   MessagesResponse,
   MessageResponse,

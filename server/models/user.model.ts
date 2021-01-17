@@ -5,7 +5,7 @@ const schema = new Schema({
   name: String,
   email: {type: String, unique: true},
   username: {type: String, unique: true},
-  password: String,
+  password:{type: String, select: false},
   conversations: {type: [Schema.Types.ObjectId], ref: 'Conversation'}
 }, { timestamps: true});
 
