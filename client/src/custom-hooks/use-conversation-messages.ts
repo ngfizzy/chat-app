@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { IConversation } from '../../../types/models';
 import {conversationController} from '../controllers';
 import { IMessage } from '../../../types/models'
 
@@ -23,7 +22,7 @@ export const useConversationMessages = (conversationId: string = '') => {
   }
 
   useEffect(() => {
-=    if(conversationId) {
+    if(conversationId) {
       conversationController.getConversationMessages(conversationId)
         .then(messages => {
           setConversationMessages(() => messages);
