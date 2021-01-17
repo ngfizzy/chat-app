@@ -1,6 +1,6 @@
 
 import { IMessage } from '../../../types/models';
-import { Conversation } from '../api/conversation';
+import { Conversation } from '../API/conversation';
  
 export class ConversationController {
   constructor(private api: Conversation) {}

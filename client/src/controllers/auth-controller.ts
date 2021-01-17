@@ -1,5 +1,5 @@
 import { IUser } from '../../../types/models';
-import {Auth} from '../api/auth';
+import {Auth} from '../API/auth';
 
 export class AuthController {
 
