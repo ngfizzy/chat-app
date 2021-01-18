@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { IConversation } from '../../../types/models';
 import {conversationController} from '../controllers';
 import { IMessage } from '../../../types/models'
 
@@ -8,18 +7,19 @@ export const useConversationMessages = (conversationId: string = '') => {
   const createMessage = (text: string) => {
       const message: Partial<IMessage> = {text};
 
-
+    if(conversationId) {
       conversationController.createConversationMessage(
-          conversationId,
+        conversationId,
           message
       )
       .then((chatMessage) => {
-        
         if(chatMessage) {
           setConversationMessages(messages => [...messages, chatMessage]);
         }
       })
-  } 
+    }
+
+  }
 
   useEffect(() => {
     if(conversationId) {

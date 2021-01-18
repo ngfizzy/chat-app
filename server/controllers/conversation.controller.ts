@@ -9,7 +9,13 @@ import {
   IUser,
   MessagesResponse 
 } from '../../types/models';
-import { Conversation, User, Message, ConversationDoc, MessageDoc } from '../models';
+import {
+  Conversation,
+  User,
+  Message,
+  ConversationDoc,
+  MessageDoc
+} from '../models';
 
 
 @boundClass
@@ -47,7 +53,7 @@ export class ConversationController {
         return userError;
       }
 
-      let conversation = await this.conversation.findOne({ parties: { $in: parties }})
+      let conversation = await this.conversation.findOne({ parties: { $all: parties, $size: 2 }})
         .populate({ path: 'parties', model: 'User'});
 
       if(!conversation) {
@@ -62,12 +68,12 @@ export class ConversationController {
         await conversation.save()
 
         conversation = await this.conversation.findById(conversation._id)
-          .populate({ path: 'parties', model: 'User'});
+          .populate({ path: 'parties', model: 'User'})
       }
 
       return {
         conversation,
-        error: false, 
+        error: false,
         message: 'success',
         status: 200,
       };
@@ -141,7 +147,7 @@ export class ConversationController {
 
       chatMessage = await chatMessage.save();
       await conversation!.save();
-            
+
       chatMessage = await this.message.findById(chatMessage._id)
         .populate({
           path: 'author',
@@ -155,14 +161,14 @@ export class ConversationController {
         status: 200,
         message: 'chat sent successfully',
       };
-    } catch(e) {  
+    } catch(e) {
       return {
         chatMessage: null,
         error: false,
         status: 500,
         message: 'an error occurred while sending',
       };
-    } 
+    }
   }
 
   async getMessages(
@@ -191,7 +197,7 @@ export class ConversationController {
         if(error) {
           return error;
         }
-      
+
         return {
            chatMessages:  conversation?.messages || [],
            error: false,

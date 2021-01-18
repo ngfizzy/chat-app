@@ -1,7 +1,7 @@
 
 import { IMessage } from '../../../types/models';
-import { Conversation } from '../api/conversation';
- 
+import { Conversation } from '../API/conversation';
+
 export class ConversationController {
   constructor(private api: Conversation) {}
 
@@ -9,10 +9,12 @@ export class ConversationController {
     return this.api.initConversation(conversationId)
       .then(({data: { conversation }}) => conversation);
   }
+
   getMyConversations() {
     return this.api.getMyConversations()
       .then(({data: { conversations }}) => conversations);
   }
+
   getConversationMessages(conversationId: string) {
     return this.api.getConversationMessages(conversationId)
       . then(({data: { chatMessages }}) => chatMessages);

@@ -1,4 +1,4 @@
-import { auth,user, conversation } from '../api';
+import { auth,user, conversation } from '../API';
 import { AuthController } from './auth-controller';
 import { UserController } from './user-controller';
 import { ConversationController } from './conversation-controller';
