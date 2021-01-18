@@ -64,9 +64,8 @@ export interface MessagesResponse extends BaseRes {
 }
 export interface IAuthContext  {
   user?: IUser
-  setUser: (value: IUser) => any;
+  setUser: (value?: IUser) => any;
 }
-
 
 export abstract class HttpClient {
   post<T>(...args: any): Promise<{data: T}> {}

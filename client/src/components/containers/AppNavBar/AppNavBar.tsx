@@ -15,19 +15,17 @@ import { useUsers } from '../../../custom-hooks';
 import { IUser } from '../../../../../types/models';
 import { AuthContext } from '../../../store/AuthContext';
 import { ConversationContext } from '../../../store/ConversationContext';
-
-
 import './AppNavBar.css';
 
 export const AppNavBar:FC = () => {
-  const {user: authUser} = useContext(AuthContext)!
+  const {user: authUser, setUser } = useContext(AuthContext)!
   const {users} = useUsers(!!authUser);
   const [isShowingUsers, setIsShowingUsers] = useState(false);
-  const [user, setUser] = useState<IUser | undefined>();
+  const [selectedUser, setSelectedUser] = useState<IUser | undefined>();
 
   const [ searchTerm, setSearchTerm ] = useState('');
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
-  const { setParticipantId} = useContext(ConversationContext);;
+  const { setParticipantId} = useContext(ConversationContext);
 
 
   useEffect(() => {
@@ -35,10 +33,10 @@ export const AppNavBar:FC = () => {
   }, [users]);
 
   useEffect(() => {
-    if(user) {
-      setParticipantId!(user._id!)
+    if(selectedUser) {
+      setParticipantId!(selectedUser._id!)
     }
-  }, [user, setParticipantId]);
+  }, [selectedUser, setParticipantId]);
 
   const search = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +53,10 @@ export const AppNavBar:FC = () => {
     setSearchTerm(e.target.value)
   };
 
+  const logout = () => {
+    setUser();
+    localStorage.removeItem('session');
+  }
 
   return (
     <>
@@ -67,7 +69,6 @@ export const AppNavBar:FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            
           </Nav>
           <Form 
             inline
@@ -91,11 +92,15 @@ export const AppNavBar:FC = () => {
             </Button>
           </Form>
 
-          <Button className="d-inline-block ml-auto" variant="success">
+          <Button
+            className="d-inline-block ml-auto"
+            variant="success"
+            onClick={logout}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} />
           </Button>
         </Navbar.Collapse>
-      </Navbar> : null 
+      </Navbar> : null
       }
       { isShowingUsers? <Col xs={10} md={8} className="mx-auto bg-light mb-1 SearchResults">
           <Row>
@@ -114,7 +119,7 @@ export const AppNavBar:FC = () => {
                 <ListGroup.Item
                   variant={index % 2 > 0 ? 'dark': 'light'}
                   onClick={() => {
-                    setUser(result)
+                    setSelectedUser(result)
                     setIsShowingUsers(false);
                   }}
                   className="text-capitalize Clickable" key={result._id}>

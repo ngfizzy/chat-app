@@ -6,7 +6,7 @@ export const AuthContext = createContext<IAuthContext|null>(null);
 
 let stringifiedUser = localStorage.getItem('session');
 
-let  initialUser: IUser | null; 
+let  initialUser: IUser | null;
 
 try {
 
@@ -16,7 +16,7 @@ try {
 }
 
 export const AuthProvider:FC<{}> = ({children}) => {
-  const [user, setUser] = useState<IUser>(initialUser!);
+  const [user, setUser] = useState<IUser | undefined>(initialUser!);
 
   return(
     <AuthContext.Provider value={{user, setUser}}>
