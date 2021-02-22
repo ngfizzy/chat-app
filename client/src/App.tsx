@@ -13,17 +13,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Auth from './components/pages/Auth';
 import { Col, Row } from 'react-bootstrap';
-
 import { AppNavBar } from './components/containers/AppNavBar';
-import { ConversationProvider } from './store/ConversationContext';
-
+import { ContactsVisibilityProvider,ConversationProvider } from './store';
 
 function App() {
   return (
     <Row as="div" className="App">
       <AuthProvider>
+        <ContactsVisibilityProvider>
+        <AppNavBar />
+
         <ConversationProvider>
-          <AppNavBar />
           <Col xs={12} className="p-0">
             <Router>
               <Switch>
@@ -34,6 +34,7 @@ function App() {
             </Router>
           </Col>
         </ConversationProvider>
+          </ContactsVisibilityProvider>
       </AuthProvider>
     </Row>
   );
