@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Col, Container,Row } from 'react-bootstrap';
-import { ConversationsList } from '../../containers/ConversationsList';
-import { Conversation } from '../../containers/Conversation';
-import { AuthContext, ConversationContext } from '../../../store/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faTimes } from '@fortawesome/free-solid-svg-icons'
-import {getConversationName} from '../../../utils'
-import './Chat.css';
+import { Col, Container,Row } from 'react-bootstrap';
 
+import { ConversationsList } from '../../ConversationsList';
+import { Conversation } from '../../containers/Conversation';
+import { AuthContext, ContactsVisibilityContext, ConversationContext } from '../../../store/';
+import {getConversationName} from '../../../utils'
+import { Contacts } from '../../Contacts';
+
+import './Chat.css';
 
 export const Chat = () => {
     const {user}=  useContext(AuthContext)!;
@@ -17,13 +19,17 @@ export const Chat = () => {
       showConversationsList,
       setShowConversationsList
     } =  useContext(ConversationContext);
-
+    const {
+      isVisible: isShowingUsers,
+      setIsVisible: setIsShowingUsers
+    } = useContext(ContactsVisibilityContext);
+   
     const [messageText, setMessegeText ] = useState('');
 
- 
     const toggleConversationList = () => {
       setShowConversationsList && setShowConversationsList((show: boolean) => !show)
     }
+  
     const handleMessageTyped = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setMessegeText(e.target.value);
     };
@@ -32,18 +38,18 @@ export const Chat = () => {
       e.preventDefault();
       createMessage && createMessage(messageText)
       setMessegeText(() => '');
-    }
+    };
 
     const onEnterPress = (e: React.KeyboardEvent) => {
-      if(e.keyCode === 13 && e.shiftKey === false) {
+      if(e.key === 'Enter' && e.shiftKey === false) {
         e.preventDefault();
         sendMessage(e);
       }
-    }
+    };
 
     return <Container fluid>
       <Row as='main' className="Chat">
-        <Col xs={12} xl={8} className="h-100 mx-auto rounded">
+        <Col xs={12} xl={10} className="h-100 mx-auto rounded">
           <Row className="h-100">
           { showConversationsList? 
               <Col
@@ -62,11 +68,11 @@ export const Chat = () => {
                           </span>
                       </h3>
                   </header>
-                  <ConversationsList user={user!}/>
+                  <ConversationsList />
               </Col> : null
             }
           
-            <Col as="section" xs={12} sm={8}  lg={9} className="rounded">
+            <Col as="section" xs={12} sm={8} lg={6} className="rounded">
               <Row className="bg-light ConversationWrapper">
                 <Col xs={12}>
                   <header className="p-3 pb-0 ChatBorder Header">
@@ -112,8 +118,26 @@ export const Chat = () => {
                 </Col>
               </Row>
             </Col>
+            <Col
+              as="section"
+              xs={12}
+              lg={3}
+              className={`h-100 p-1 bg-light rounded ContactsListWrapper ${window.innerWidth <= 992 && isShowingUsers ? 'Mobile': ''}`}
+            >
+              <header className="p-3 pb-0 ChatBorder Header">
+                <h3 className="font-weight-bold d-flex justify-content-between">
+                  Contacts
+                    <span
+                      onClick={() => setIsShowingUsers(window.innerWidth >= 992)}
+                      className="text-success d-sm-none">
+                      <FontAwesomeIcon icon={faTimes} />
+                    </span>
+                  </h3>
+              </header>
+              <Contacts />
+            </Col>
           </Row>
         </Col>
       </Row>
-    </Container>
+    </Container>;
 }

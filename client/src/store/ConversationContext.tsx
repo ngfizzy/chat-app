@@ -12,7 +12,6 @@ export const ConversationContext = createContext<{
   showConversationsList?: boolean;
 }>({});
 
-
 export const ConversationProvider:FC<{}> = ({children}) => {
   const {conversation, setParticipantId} = useSetConversation();
 

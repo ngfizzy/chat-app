@@ -2,7 +2,7 @@
   height: 93vh;
 }
 
-.ConversationListWrapper {
+.ConversationListWrapper, .ContactsListWrapper {
   border-left: 2px solid #e9ebfa;
   border-right: 2px solid #e9ebfa;
 }
@@ -29,4 +29,16 @@
   font-size: 2rem;
   color: #3082ff;
 
+}
+
+.ContactsListWrapper.Mobile {
+  position: fixed;
+  right: 0;
+}
+
+
+@media (min-width: 556px ) and (max-width: 992px){
+  .Mobile {
+    width: 70vw !important;
+  }
 }

@@ -1,9 +1,7 @@
-import { AuthResponse, HttpClient, IUser } from '../../../types/models';
-
+import { AuthResponse, HttpClient, IUser } from "../../../types/models";
 
 export class Auth {
-
-  private authBasePath = 'auth';
+  private authBasePath = "auth";
 
   constructor(private http: HttpClient) {}
 
