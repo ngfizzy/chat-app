@@ -34,9 +34,6 @@ export class ConversationController {
     try {
       const recipient = await this.user.findById(recipientId);
       const me = await this.user.findById(currentUserId);
-
-      // console.log("me>>>>>>>>>>>>>>", me);
-      // console.log("recipient>>>>>>>+++", recipient);
       const parties = [];
 
       const userError = {
