@@ -22,6 +22,7 @@ export const ContactsContainer:FC = () => {
 
   useEffect(() => {
     if(selectedUser) {
+      console.log(selectedUser._id);
       setParticipantId!(selectedUser._id!)
     }
   }, [selectedUser, setParticipantId]);
@@ -29,6 +30,10 @@ export const ContactsContainer:FC = () => {
   useEffect(() => {
       setSearchResults(() => users);
   }, [users]);
+
+  // useEffect(() => {
+  //   console.log('selectedUser?>>>>', selectedUser)
+  // }, [selectedUser])
 
   const search = (e: React.FormEvent) => {
     e.preventDefault();

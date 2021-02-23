@@ -1,18 +1,11 @@
 import dotenv from "dotenv";
-import cors from "cors";
-import express, { Response, Request } from "express";
+import { Response, Request } from "express";
 import { connect, set as setMongooseConfig } from "mongoose";
-import { createServer } from "http";
 import { authRouter, userRouter, conversationRouter } from "./routes";
 import { authMiddleware } from "./middleware";
+import { app, httpServer } from "./http-server";
 
 dotenv.config();
-
-const app = express();
-const httpServer = createServer(app);
-
-app.use(cors());
-app.use(express.json());
 
 app.get("/", (_: Request, res: Response) => {
   res.json({ message: "hello" });

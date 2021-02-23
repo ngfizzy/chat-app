@@ -7,9 +7,11 @@ export const useSetConversation = () => {
   const [conversation, setConversation] = useState<IConversation | null>();
 
   useEffect(() => {
+    console.log('>>>>>>>>>>>>>>>>>>....', participantId)
     if(participantId) {
       conversationController.initConversation(participantId)
         .then(convo => {
+          console.log('conversation>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', convo)
           setConversation(convo);
         });
     }
