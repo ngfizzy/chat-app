@@ -10,7 +10,7 @@ export const useSetConversation = () => {
     if(participantId) {
       conversationController.initConversation(participantId)
         .then(convo => {
-          setConversation(convo);
+\          setConversation(convo);
         });
     }
   }, [participantId]);

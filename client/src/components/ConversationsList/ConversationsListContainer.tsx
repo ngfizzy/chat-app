@@ -36,7 +36,7 @@ export const ConversationsListContainer: FC = () => {
       }
     }
   }
-  const selectCallback =  useCallback(select, [setParticipantId]);
+  const selectCallback =  useCallback(select, [setParticipantId, conversation]);
 
   useEffect(() => {
     conversationController.getMyConversations()
