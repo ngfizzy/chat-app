@@ -1,33 +1,43 @@
-import { useState, useEffect } from 'react';
-import {conversationController} from '../controllers';
-import { IMessage } from '../../../types/models'
+import { useState, useEffect, useCallback } from "react";
+import { conversationController } from "../controllers";
+import { IMessage } from "../../../types/models";
 
-export const useConversationMessages = (conversationId: string = '') => {
-  const [conversationMessages, setConversationMessages] = useState<IMessage[]>([]);
+export const useConversationMessages = (conversationId: string = "") => {
+  const [conversationMessages, setConversationMessages] = useState<IMessage[]>(
+    []
+  );
   const createMessage = (text: string) => {
-      const message: Partial<IMessage> = {text};
+    const message: Partial<IMessage> = { text };
 
-    if(conversationId) {
-      conversationController.createConversationMessage(
-        conversationId,
-          message
-      )
-      .then((chatMessage) => {
-        if(chatMessage) {
-          setConversationMessages(messages => [...messages, chatMessage]);
-        }
-      })
+    if (conversationId) {
+      conversationController
+        .createConversationMessage(conversationId, message)
+        .then((chatMessage) => {
+          if (chatMessage) {
+            setConversationMessages((messages) => [...messages, chatMessage]);
+          }
+        });
     }
+  };
 
-  }
-
-  useEffect(() => {
-    if(conversationId) {
-      conversationController.getConversationMessages(conversationId)
-        .then(messages => {
+  const fetchAllMessages = useCallback(() => {
+    if (conversationId) {
+      conversationController
+        .getConversationMessages(conversationId)
+        .then((messages) => {
           setConversationMessages(() => messages);
-        });    }
+        });
+    }
   }, [conversationId]);
 
-  return { conversationMessages, createMessage,  };
-}
+  useEffect(() => {
+    const intervalId = setInterval(fetchAllMessages, 3000);
+    fetchAllMessages();
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [fetchAllMessages]);
+
+  return { conversationMessages, createMessage };
+};

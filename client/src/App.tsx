@@ -10,12 +10,12 @@ import { AuthProvider} from './store/AuthContext';
 import {Chat} from './components/pages/Chat';
 import ProtectedRoute from './ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import Auth from './components/pages/Auth';
 import { Col, Row } from 'react-bootstrap';
 import { AppNavBar } from './components/containers/AppNavBar';
 import { ContactsVisibilityProvider,ConversationProvider } from './store';
 
+import './App.css';
 function App() {
   return (
     <Row as="div" className="App">

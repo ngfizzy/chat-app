@@ -15,7 +15,6 @@ interface Props {
   selectedConversation?: IConversation
 }
 export const ConversationsList: FC<Props> = ({user, conversations, select, selectedConversation}) => {
-
   if(!conversations?.length) {
     return <h5 className="text-muted text-center mt-5">
       Use the search box to look for people

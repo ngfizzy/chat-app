@@ -37,14 +37,21 @@ export const ConversationsListContainer: FC = () => {
     }
   }
   const selectCallback =  useCallback(select, [setParticipantId, conversation]);
-
-  useEffect(() => {
+  const getMyConversations = useCallback(() =>{
     conversationController.getMyConversations()
       .then((convos) => {
         setConversations(convos);
-
       });
-  }, [setConversations]);
+  }, [setConversations])
+  useEffect(() => {
+    const intervalId = setInterval(getMyConversations, 5000);
+    
+    getMyConversations();
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [getMyConversations]);
 
 
   return <ConversationsList
