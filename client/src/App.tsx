@@ -5,14 +5,14 @@ import {
   Route,
   // Link
 } from 'react-router-dom';
-import Home from './components/pages/Home';
+import Home from './pages/Home';
 import { AuthProvider} from './store/AuthContext';
-import {Chat} from './components/pages/Chat';
+import {Chat} from './pages/Chat';
 import ProtectedRoute from './ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Auth from './components/pages/Auth';
+import Auth from './pages/Auth';
 import { Col, Row } from 'react-bootstrap';
-import { AppNavBar } from './components/containers/AppNavBar';
+import { AppNavBar } from './components/AppNavBar';
 import { ContactsVisibilityProvider,ConversationProvider } from './store';
 
 import './App.css';

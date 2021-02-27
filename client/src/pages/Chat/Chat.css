@@ -12,30 +12,10 @@
   overflow: auto;
 }
 
-.TextAreaWrapper {
-  height: 13.2vh;
-  border: 2px solid #e9ebfa;
-}
-
-.TextAreaWrapper textarea {
-  resize: none;
-  border: 1px solid #f9f9f9;
-  background-color: #f4efef;
-  color: #5b5e63;
-  outline: none;
-}
-
-.TextAreaWrapper button {
-  font-size: 2rem;
-  color: #3082ff;
-
-}
-
 .ContactsListWrapper.Mobile {
   position: fixed;
   right: 0;
 }
-
 
 @media (min-width: 556px ) and (max-width: 992px){
   .Mobile {

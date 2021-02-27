@@ -1,8 +1,8 @@
 import React, {FC,useContext} from 'react';
 import TimeAgo from 'react-timeago';
-import { ProfileIcon } from '../../presentation/ProfileIcon';
-import { MultilineText } from '../../presentation/MultilineText';
-import { ConversationContext, AuthContext }  from '../../../store';
+import { ProfileIcon } from '../ProfileIcon';
+import { MultilineText } from '../MultilineText';
+import { ConversationContext, AuthContext }  from '../../store';
 import './Conversation.css';
 
 const getMessageClass = (authorId?: string, userId?: string) => {

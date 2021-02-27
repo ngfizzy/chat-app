@@ -8,10 +8,11 @@ import {
   Nav,
 } from 'react-bootstrap';
 
-import { AuthContext } from '../../../store/AuthContext';
-import { ContactsVisibilityContext } from '../../../store';
+import { AuthContext } from '../../store/AuthContext';
+import { ContactsVisibilityContext } from '../../store';
 
 import './AppNavBar.css';
+import { ChatlyLogo } from '../ChatlyLogo';
 
 export const AppNavBar:FC = () => {
   const {user, setUser } = useContext(AuthContext)!;
@@ -29,9 +30,7 @@ export const AppNavBar:FC = () => {
       user ? 
       <Navbar as={Col} xs={12} xl={10} variant="light" className="mx-auto mb-1 bg-light rounded" expand="sm">
         <Navbar.Brand  href="#home">
-          <h3 className="font-weight-bold font-italic NavBrand">
-            Chatly
-          </h3>
+          <ChatlyLogo />
         </Navbar.Brand>
         {viewPortWidth < 992?
           <Button onClick={() => setIsContactsVisible(isVisible => !isVisible)}>Contacts</Button> : null

@@ -1,8 +1,8 @@
 import React, { Dispatch, FC, FormEvent, SetStateAction } from "react";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { Button, Col, Form, FormControl, ListGroup, Row } from "react-bootstrap";
+
 import { IUser } from "../../../../types/models";
 
 import './Contacts.css';

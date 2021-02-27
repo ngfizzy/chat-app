@@ -1,1 +1,1 @@
-export {ContactsContainer as Contacts} from './ContactsContainer'
+export {ContactsSection as Contacts} from './ContactsSection';
