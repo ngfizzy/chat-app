@@ -3,9 +3,9 @@ import { FC, useContext, useState } from "react";
 import { IConversation } from "../../../../types/models";
 import { conversationController } from "../../controllers";
 import { AuthContext, ConversationContext } from "../../store";
-import { ConversationsList } from "./ConversationsList";
+import { RecentConversations } from "./RecentConversations";
 
-export const ConversationsListContainer: FC = () => {
+export const RecentConversationsContainer: FC = () => {
   const {user}=  useContext(AuthContext)!;
 
   const [conversations, setConversations] = useState<IConversation[]>([]);
@@ -53,11 +53,12 @@ export const ConversationsListContainer: FC = () => {
     }
   }, [getMyConversations]);
 
-
-  return <ConversationsList
-    user={user}
-    conversations={conversations}
-    select={selectCallback}
-    selectedConversation={conversation}
-  />
+  return (
+    <RecentConversations
+      user={user}
+      conversations={conversations}
+      select={selectCallback}
+      selectedConversation={conversation}
+    />
+  )
 }

@@ -1,0 +1,8 @@
+.VerticalSection {
+  border-left: 2px solid #e9ebfa;
+  border-right: 2px solid #e9ebfa;
+}
+
+.VerticalSection .Heading {
+  color: rgb(95, 157, 251);
+}

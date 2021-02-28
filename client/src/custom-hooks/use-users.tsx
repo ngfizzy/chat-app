@@ -7,7 +7,6 @@ export const useUsers = (isAuth: boolean)  => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [error, setError] = useState('');
 
-
   const getAllUsers = useCallback(() => {
     if(isAuth) {
       userController.getAllUsers()
@@ -17,7 +16,6 @@ export const useUsers = (isAuth: boolean)  => {
       .catch(() => setError('not found'));
     }
   }, [isAuth]);
-
 
   useEffect(() => {
     const intervalId = setInterval(() =>{

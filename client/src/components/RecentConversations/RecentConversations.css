@@ -1,15 +1,15 @@
-.ConversationsList {
+.RecentConversations {
   height: 90%;
   overflow: auto;
 }
 
 
-.ConversationListItem {
+.RecentConversation {
   display: flex;
   cursor: pointer;
 }
 
-.ConversationListItem:hover,
+.RecentConversation:hover,
 .selected {
   background-color: #ececf3;
 }

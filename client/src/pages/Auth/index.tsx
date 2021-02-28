@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import Signup from '../../presentation/Signup';
-import Login from '../../presentation/Login'
+import Signup from '../../components/Signup/Signup';
+import Login from '../../components/Login/Login'
 import { Button, Col, Row } from 'react-bootstrap';
-import { updateFormState } from '../../../helpers';
-import { IUser } from '../../../../../types/models';
-import { useAuth } from '../../../custom-hooks';
+import { updateFormState } from '../../helpers';
+import { IUser } from '../../../../types/models';
+import { useAuth } from '../../custom-hooks';
 import './Auth.css';
 import { Redirect } from 'react-router-dom';
 

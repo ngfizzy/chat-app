@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 
-import { ConversationSummary } from '../presentation/ConversationSummary';
-import { ProfileIcon } from '../presentation/ProfileIcon';
+import { ConversationSummary } from '../ConversationSummary';
+import { ProfileIcon } from '../ProfileIcon';
 import { IConversation, IUser } from '../../../../types/models';
 import { getConversationName } from '../../utils';
 
-import './ConversationsList.css'
+import './RecentConversations.css'
 
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   select: (arg: IConversation) => () => any;
   selectedConversation?: IConversation
 }
-export const ConversationsList: FC<Props> = ({user, conversations, select, selectedConversation}) => {
+export const RecentConversations: FC<Props> = ({user, conversations, select, selectedConversation}) => {
   if(!conversations?.length) {
     return <h5 className="text-muted text-center mt-5">
       Use the search box to look for people
@@ -22,14 +22,14 @@ export const ConversationsList: FC<Props> = ({user, conversations, select, selec
   }
 
   return (
-    <div className="ConversationsList">
+    <div className="RecentConversations">
       {conversations
         .map(convo => (
           convo.parties.length > 1 ?
             <div 
               key={convo._id!}
               className={
-                `p-1 mb-1 mt-3 ConversationListItem 
+                `p-1 mb-1 mt-3 RecentConversation 
                 ${convo._id === selectedConversation?._id? 'selected' : ''}`
               }
               onClick={select(convo)}
