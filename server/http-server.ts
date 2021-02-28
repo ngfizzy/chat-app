@@ -1,7 +1,9 @@
 import cors from "cors";
 import express from "express";
-import { createServer } from "http";
-// import fs from "fs";
+// import { createServer } from "https";
+import path from "path";
+import spdy from "spdy";
+import fs from "fs";
 // import path from "path";
 
 export const app = express();
@@ -18,4 +20,10 @@ app.use(express.json());
 //     .toString(),
 // };
 
-export const httpServer = createServer(app);
+export const httpServer = spdy.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, "localhost-private.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "localhost-cert.pem")),
+  },
+  app
+);
