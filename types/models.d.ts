@@ -1,6 +1,5 @@
-
 declare interface GenericObject {
-    [key: string]: any;
+  [key: string]: any;
 }
 
 export interface BaseRes {
@@ -17,9 +16,8 @@ export interface IUser {
   email: string;
   password?: string;
   token?: string;
-  conversations?: IConversation[]
+  conversations?: IConversation[];
 }
-
 
 export interface IConversation {
   _id?: string;
@@ -44,7 +42,7 @@ export interface AuthResponse extends BaseRes {
 }
 
 export interface UsersResponse extends BaseRes {
-  users: IUser[]
+  users: IUser[];
 }
 
 export interface ConversationResponse extends BaseRes {
@@ -52,7 +50,7 @@ export interface ConversationResponse extends BaseRes {
 }
 
 export interface ConversationsResponse extends BaseRes {
-  conversations: IConversation[]
+  conversations: IConversation[];
 }
 
 export interface MessageResponse extends BaseRes {
@@ -62,15 +60,15 @@ export interface MessageResponse extends BaseRes {
 export interface MessagesResponse extends BaseRes {
   chatMessages: IMessage[];
 }
-export interface IAuthContext  {
-  user?: IUser
+export interface IAuthContext {
+  user?: IUser;
   setUser: (value?: IUser) => any;
 }
 
 export abstract class HttpClient {
-  post<T>(...args: any): Promise<{data: T}> {}
-  get<T>(...args: any): Promise<{data: T}> {}
-  put<T>(...args: any): Promise<{data: T}> {}
-  patch<T>(...args: any): Promise<{data: T}> {}
-  delete<T>(...args: any): Promise<{data: T}> {}
+  post<T>(...args: any): Promise<{ data: T }> {}
+  get<T>(...args: any): Promise<{ data: T }> {}
+  put<T>(...args: any): Promise<{ data: T }> {}
+  patch<T>(...args: any): Promise<{ data: T }> {}
+  delete<T>(...args: any): Promise<{ data: T }> {}
 }
