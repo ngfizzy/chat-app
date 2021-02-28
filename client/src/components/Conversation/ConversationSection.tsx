@@ -60,9 +60,9 @@ export const ConversationSection = () => {
     )
     : 
     <VerticalSection as="section" xs={12} sm={8} lg={6}>
-      <div className="UnslelectedConversation">
-        <ChatlyLogo />
-
+      <div className="UnselectedConversation">
+        <ChatlyLogo size="xl" />
+        <h3>Start Chatting</h3>
       </div>
     </VerticalSection>
   

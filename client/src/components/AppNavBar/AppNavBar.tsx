@@ -30,7 +30,7 @@ export const AppNavBar:FC = () => {
       user ? 
       <Navbar as={Col} xs={12} xl={10} variant="light" className="mx-auto mb-1 bg-light rounded" expand="sm">
         <Navbar.Brand  href="#home">
-          <ChatlyLogo />
+          <ChatlyLogo size="lg" />
         </Navbar.Brand>
         {viewPortWidth < 992?
           <Button onClick={() => setIsContactsVisible(isVisible => !isVisible)}>Contacts</Button> : null
