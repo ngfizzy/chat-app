@@ -54,7 +54,7 @@ export class AuthController {
         error: false,
         status: 200,
       };
-    } catch {
+    } catch (e) {
       return authError;
     }
   }
